@@ -1,0 +1,90 @@
+﻿@model Patterson.Domain.Entities.User
+
+@{
+    ViewBag.Title = "Admin: Edit " + @Model.name;
+}
+
+<h2>Edit/Create @Model.name</h2>
+
+@using (Html.BeginForm("Edit", "Admin", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    <fieldset>
+    <legend>User Information</legend>
+    
+    @Html.EditorForModel()
+    
+    </fieldset>
+    <p>
+    <h3>Roles</h3> (You should choose at least one role!): 
+    </p>
+            
+    var allRoles = ViewData["Roles"] as List<string>;
+    var UserRoles = ViewData["UserInRoles"] as List<string>;
+    List<string> notInRoles = new List<string>();
+    List<string> AddedRoles = new List<string>();
+    foreach (string Arole in allRoles)
+    {
+        if (UserRoles == null)
+        {
+            @Html.Label(Arole, Arole)
+            @Html.CheckBox(Arole, false)
+            <br />   
+        }
+        else
+        {
+            foreach (string userRole in UserRoles)
+            {
+                if (Arole.Equals(userRole))
+                {
+                    @Html.Label(userRole, userRole)
+                    @Html.CheckBox(userRole, true)
+                    <br />
+                    UserRoles.Remove(Arole);
+                    AddedRoles.Add(Arole);
+                    break;
+                }
+
+            }
+            if (!notInRoles.Contains(Arole) && !AddedRoles.Contains(Arole))
+            {
+                notInRoles.Add(Arole);
+            }
+        }
+    }
+    foreach (var nr in notInRoles)
+    {
+        @Html.Label(nr, nr)
+        @Html.CheckBox(nr, false)
+        <br />
+    }
+    <br />
+    <fieldset>
+    <legend>Image</legend>
+        <div class="editor-label">Image</div>
+        <div class="editor-field">
+            @if (Model.ImageData == null)
+            {
+                @:None
+            }
+            else
+            {
+                <img width="150" height="150" 
+                src="@Url.Action("GetImage", "User", new { Model.id })" />
+            }
+            <input type="file" name="Image"  value="Upload new image:"class="b1"/>
+        </div>
+    </fieldset>
+    <p><input type="submit" value="Save" class ="b1" /></p>
+    <p><input type="button" value="Cancel and return to List" class = "b1" onclick="location.href='@Url.Action("Index", "Admin")'" /></p> 
+}
+
+
+<script type="text/jscript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false, height: 'auto', width: 'auto' });
+        $(".b1").button();
+        $("#password").mask();
+        //$("#myfieldset").dialog({closeOnEscape: false});
+    });
+</script>

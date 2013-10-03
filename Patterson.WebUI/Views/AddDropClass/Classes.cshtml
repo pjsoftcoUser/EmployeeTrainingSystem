@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Classes";
+}
+
+<h2>Select a class to see the meeting hours: </h2>
+
+
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/AddDropClass/CreateClassTable/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Class ID', 'Instructor', 'Size Limit','Remaining','Start Date', 'End Date'], //column name
+            colModel: [
+          { name: 'ID', width: 100, align: 'center' },
+          { name: 'Instructor', width: 300, align: 'left' },
+          { name: 'Size Limit', index: 'Size Limit', width: 70, align: 'center' },
+          { name: 'Remaining', index: 'Remaining', width: 70, align: 'center' },
+          { name: 'Start Date', index: 'Start Date', width: 70, align: 'center' },
+          { name: 'End Date', index: 'End Date', width: 70, align: 'center' },
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Available Classes'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+    });
+    
+    </script>
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<input type="button" class="b1" value="Return to previous page" onclick="window.location = '/AddDropClass/Table';"/>
+
+       
+
+        
+        
+    
+   

@@ -1,0 +1,26 @@
+﻿@model Patterson.Domain.Entities.ClassHour
+
+@{
+    ViewBag.Title = "AddClassHour";
+}
+
+<h2>Add Session for Class @Model.classId</h2>
+
+<fieldset id= "f1">
+    @using (Html.BeginForm("CreateClassHour", "AddRemoveClass", FormMethod.Post,
+        new { enctype = "multipart/form-data" }))
+    {
+        @Html.DropDownList("selectedDay", TempData["weekDays"] as SelectList)
+        @Html.EditorForModel(); 
+                          
+        <p><input type="submit" value="Save" class= "b1"/></p>  
+    }
+    <input type="button" class="b1" value="Return to previous page" onclick="window.location = '/AddRemoveClass/ClassHourList/@Session["ClassID"]';"/>
+</fieldset>
+
+<script type="text/javascript">
+    $().ready(function () {
+        $("#f1").dialog({ closeOnEscape: false });
+        $(".b1").button();
+    });
+</script>

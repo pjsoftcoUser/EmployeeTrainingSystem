@@ -1,0 +1,27 @@
+﻿@model Patterson.Domain.Entities.Team
+@{
+    ViewBag.Title = "EditTeam";
+}
+
+<h2>Edit Team</h2>
+
+@using (Html.BeginForm("Edit", "TeamManagement", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    <fieldset>
+
+    @Html.EditorForModel()
+
+</fieldset>
+  
+<input type="submit" value="Save" class="b1"/>
+<input type="button" class="b1" value="Cancel and return to previous page" onclick="window.location = '/TeamManagement/TeamList';"/>
+}
+
+<script type="text/javascript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+
+    });
+</script>

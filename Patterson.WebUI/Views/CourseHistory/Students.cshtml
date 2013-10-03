@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Students";
+}
+
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/CourseHistory/CreateStudentsTable/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['User ID', 'Student Name', 'Student Email', 'Grade Detail', 'Attendance'], //column name
+            colModel: [
+          { name: 'ID', width: 75, align: 'center' },
+          { name: 'Student Name', width: 170, align: 'center' },
+          { name: 'Student Email', width: 200, align: 'center' },
+          { name: 'Grade Detail', index: 'Name', width: 90, align: 'center' },
+          { name: 'Attendance', index: 'Location', width: 115, align: 'center' },
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Student Roster'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+    });
+    
+    </script>
+
+<h2>Course History</h2>
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<input type="button" class="b1" value="Return to Classes" onclick="window.location = '/CourseHistory/Classes/@Session["ClassID"]';"/>        

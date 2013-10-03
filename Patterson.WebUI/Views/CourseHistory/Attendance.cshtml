@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Attendance";
+}
+
+<h2>Attendance</h2>
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/CourseHistory/CreateAttendanceTable/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Student Id', 'Instructor Name', 'Course Name', 'Class Id', 'Start Time', 'End Time', 'Attend Time'], //column name
+            colModel: [
+          { name: 'Student Id', width: 70, align: 'center' },
+          { name: 'Instructor Name', width: 140, align: 'center' },
+          { name: 'Course Name', width: 190, align: 'center' },
+          { name: 'Class Id', width: 70, align: 'center' },
+          { name: 'Start Time', index: 'Start Time', width: 115, align: 'center' },
+          { name: 'End Time', index: 'End Time', width: 115, align: 'center' },
+          { name: 'Attend Time', index: 'Attend Time', width: 150, align: 'center' }
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Student Attendance Records'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+    });
+</script>
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<input type="button" class="b1" value="Return to Instructor Schedule" onclick="window.location = '/InstructorSchedule/';"/>

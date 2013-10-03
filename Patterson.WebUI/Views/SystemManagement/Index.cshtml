@@ -1,0 +1,28 @@
+﻿@model Patterson.Domain.Entities.SMTP
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manage System</h2>
+
+@using (Html.BeginForm("Index", "SystemManagement", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    
+    <fieldset>
+    SMTP Configuration  
+        @Html.EditorForModel()
+        <p><input type="submit" value="Save" class ="b1" /></p>        
+    </fieldset>
+}
+
+<script type="text/jscript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+        var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+        if (val != "") {
+            dhtmlx.message(val);
+        }
+    });
+</script>

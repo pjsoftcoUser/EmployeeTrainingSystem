@@ -1,0 +1,67 @@
+﻿
+
+@{
+    ViewBag.Title = "ExamSchedule";
+}
+
+<h2>ExamSchedule</h2>
+
+<script type ="text/javascript">
+    $(function () {
+        $("#exams").jqGrid({
+            url: '/Exam/CreateExamGrid/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Test', 'score', 'PassingScore', ''], //column name
+            colModel: [
+          { name: 'Test', index: 'Id', width: 105, align: 'center' },
+          { name: 'score', width: 70, align: 'center' },
+          { name: 'PassingScore', width: 105, align: 'center' },
+          { name: '', width: 105, align: 'center' }
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Previously taken exams'
+        });
+        $("#exams").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#exams").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        //     $(".b1").button();
+    });
+
+    // $(document).on('[aria-describedby="#list_Drop"]',"click",function () {
+    //    dhtmlx.confirm("Test confirm", function (result) { });
+    </script>
+    <script type ="text/javascript">
+        $(function () {
+            $("#tests").jqGrid({
+                url: '/Exam/CreateTestGrid/', //this is action in controller which returns the json as result.
+                datatype: 'json',
+                mtype: 'GET',
+                colNames: ['Test', ''], //column name
+                colModel: [
+          { name: 'Test', index: 'Id', width: 105, align: 'center' },
+          { name: '', width: 105, align: 'center' }
+          ],
+                pager: jQuery('#pager'),
+                rowNum: 10,
+                rowList: [5, 10, 20, 50],
+                sortname: 'Id',
+                sortorder: "desc",
+                viewrecords: true,
+                caption: 'Exams'
+            });
+            $("#tests").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#tests").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+            //     $(".b1").button();
+        });
+
+        // $(document).on('[aria-describedby="#list_Drop"]',"click",function () {
+        //    dhtmlx.confirm("Test confirm", function (result) { });
+    </script>
+    <table id="exams" class="scroll" cellpadding="0" cellspacing="0"></table>
+    <table id="tests" class="scroll" cellpadding="0" cellspacing="0"></table>
+    

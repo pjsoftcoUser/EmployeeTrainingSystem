@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "CreateTeam";
+}
+
+<h2>Create a new Team</h2>
+
+@using (Html.BeginForm("CreateNewTeam", "TeamManagement", FormMethod.Post))
+{
+       
+        <p>
+        <label for="Identifier">Identifier:</label>
+        </p>
+       
+        @Html.TextBox("Identifier")
+         <p>
+        <label for="TeamTitle">Title:</label>
+        </p>
+       
+        @Html.TextBox("TeamTitle")
+
+        <p>
+        <label for="Description">Description:</label>
+        </p>
+       
+        @Html.TextBox("Description")
+
+         <p>
+        <label for="ManagerID">Manager's ID number:</label>
+        </p>
+       
+        @Html.TextBox("ManagerID")
+
+
+        <p>
+           <input type="submit" value="save" class="b1" />
+        </p>
+        
+             
+
+
+<input type="button" class="b1" value="Cancel" onclick="window.location = '/TeamManagement/Index';"/>
+}
+<script type="text/javascript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+
+    });
+</script>

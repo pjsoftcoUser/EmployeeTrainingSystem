@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "DropTable";
+}
+
+<h2>Select a class to drop :</h2>
+
+
+<script type ="text/javascript">
+    var classId;
+    $(function () {
+        $("#list").jqGrid({
+            url: '/AddDropClass/CreateDropGrid/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Class Id', 'Course Name', 'Instructor', 'Start Date', 'End Date', 'Drop'], //column name
+            colModel: [
+          { name: 'Class Id', index: 'Class Id', width: 70, align: 'left' },
+          { name: 'Course Name', index: 'Course Name', width: 150, align: 'left' },
+          { name: 'Instructor', index: 'Name', width: 240, align: 'left' },
+          { name: 'Start Date', index: 'Location', width: 200, align: 'left' },
+          { name: 'End Date', index: 'Location', width: 200, align: 'left' },
+          { name: 'Drop', id: 'Drop', index: 'Drop', width: 110, align: 'center', formatter: MyFormater },
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Available Courses',
+            beforeSelectRow: function (id) {
+                classId = $("#list").jqGrid("getCell", id, "Class Id");
+                console.log(classId);
+            }
+        });
+
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+
+        function MyFormater(cellvalue, options, rowObject) {
+            //return "<a onclick=\"ConfirmDelete()\">Delete this class</a>";
+            return "<input class=\"b1\" type=\"button\" value=\"Drop this Course\" onclick=\"ConfirmDelete()\"/>";
+        }
+    });
+    function ConfirmDelete() {
+        dhtmlx.confirm({
+            type: "confirm",
+            text: "Your selection will be permanently deleted!",
+            callback: function (result) {
+                if (result == true)
+                    window.location = "/AddDropClass/Drop/" + classId;
+            }
+        });
+    }
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+    if (val != "") {
+        dhtmlx.message(val);
+    }
+    </script>
+
+    <table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+    <input type="button" class="b1" value="Return to previous page" onclick="window.location = '/AddDropClass/Index';"/>
+    

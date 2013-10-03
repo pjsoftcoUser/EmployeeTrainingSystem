@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="../../Content/css/ui-lightness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/jqGridcss/ui.jqgrid.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/themes/message/message_default.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/jqGrid/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+    <script src="/Scripts/jqGrid/grid.locale-en.js" type="text/javascript"></script>
+    <script src="../../Scripts/jqGrid/jquery.jqGrid.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/message.js" type="text/javascript"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")" type="text/javascript"></script>
+    <link href="@Url.Content("~/Content/openid-shadow.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/openid.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/openid-en.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/openid-jquery.js")" type="text/javascript"></script>
+
+    <div id="header"><br /> <br /> <br /> <br /> <br /> <br /> </div>   
+</head>
+
+<body>          
+                @RenderBody()
+                <div id="footer">
+                    <div style="position: relative; text-align: center;">This is a web based employee training system (Using ASP.NET4 MVC3) that users can use to create courses and create exams for these courses, as well as having another set of users able to enroll in and participate in courses and take exams on the system.</div> 
+                    <div style="text-align: center;">Copyright © 2013 Patterson Corporation</div>
+                </div>
+</body>
+
+</html>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        openid.init('openid_identifier');
+        $(".b1").button();
+    });
+</script>

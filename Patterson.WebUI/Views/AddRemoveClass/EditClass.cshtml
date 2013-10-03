@@ -1,0 +1,30 @@
+﻿@model Patterson.Domain.Entities.Class
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Edit Class</h2>
+
+@using (Html.BeginForm("Edit", "AddRemoveClass", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    <fieldset>
+    <legend>Class Information</legend>
+        @Html.EditorForModel()      
+    </fieldset>
+   
+<input type="submit" value="Save" class="b1"/>
+<p><input type="button" id ="hide" class="b1" value="Return to previous page" onclick="window.location = '/AddRemoveClass/ClassList/@Session["CourseID"]';"/></p>
+}
+
+<script type="text/jscript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+        $("#StartDate").datepicker();
+        $("#EndDate").datepicker();
+    });
+</script>
+
+
+

@@ -1,0 +1,46 @@
+﻿@{
+    if(!Request.IsAuthenticated)
+    {
+        Layout = "~/Views/Shared/_AnonLayout.cshtml";
+    }
+    if (Request.IsAuthenticated && Session["selectedRoles"] == null)
+    {
+        FormsAuthentication.SignOut();
+    }
+    else if (Request.IsAuthenticated && Session["selectedRoles"].Equals("admin"))
+    {    
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else if (Request.IsAuthenticated && Session["selectedRoles"].Equals("student"))
+    {
+        Layout = "~/Views/Shared/_StudentLayout.cshtml";
+    }
+    else if (Request.IsAuthenticated && Session["selectedRoles"].Equals("instructor"))
+    {
+        Layout = "~/Views/Shared/_InstructorLayout.cshtml";
+    }
+    else if (Request.IsAuthenticated && Session["selectedRoles"].Equals("ClassManagement"))
+    {
+        Layout = "~/Views/Shared/_ClassManagementLayout.cshtml";
+    }
+    else if (Request.IsAuthenticated && Session["selectedRoles"].Equals("CourseManagement"))
+    {
+        Layout = "~/Views/Shared/_CourseManagementLayout.cshtml";
+    }
+    else if (Request.IsAuthenticated && Session["selectedRoles"].Equals("GroupManagement"))
+    {
+        Layout = "~/Views/Shared/_GroupManagementLayout.cshtml";
+    }
+    else if (Request.IsAuthenticated && Session["selectedRoles"].Equals("SystemManagement"))
+    {
+        Layout = "~/Views/Shared/_SystemManagementLayout.cshtml";
+    }
+    else if (Request.IsAuthenticated && Session["selectedRoles"].Equals("TestManagement"))
+    {
+        Layout = "~/Views/Shared/_TestManagementLayout.cshtml";
+    }
+    else if (Request.IsAuthenticated && Session["selectedRoles"].Equals("UserManagement"))
+    {
+        Layout = "~/Views/Shared/_UserManagementLayout.cshtml";
+    }
+}

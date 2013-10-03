@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Classes</h2>
+<h3>Select a course to see the corresponding classes.</h3>
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<p><input type="button" value="Add a new class" class = "b1" onclick="location.href='@Url.Action("Index", "AddRemoveClass")'" /></p>
+@*<p><input type="button" value="Back to Home" class = "b1" onclick="location.href='@Url.Action("Index", "Admin")'" /></p>*@
+
+<script type="text/jscript">
+    $().ready(function () {
+        $("#list").jqGrid({
+            url: '/AddRemoveClass/courseTable/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Course ID', 'Course Number', 'Title', 'View/Edit Classes'], //column name
+            colModel: [
+          { name: 'ID', width: 70, align: 'center' },
+          { name: 'Course Number', width: 100, align: 'center' },
+          { name: 'Title', width: 300, align: 'left' },
+          { name: 'View/Edit Classes', width: 100, align: 'center' },
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Available Courses'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+        var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+        if (val != "") {
+            dhtmlx.message(val);
+        }
+    });
+</script>

@@ -1,0 +1,50 @@
+﻿@model Patterson.Domain.Entities.User
+
+@{
+    ViewBag.Title = "Home";
+    
+}
+    <h2>Home</h2>
+ 
+@using (Html.BeginForm("Index", "Home", FormMethod.Post,
+    new { id = "myForm" }))
+{
+
+  <fieldset id="myfieldset">
+    <img width="150" height="150" 
+    src="@Url.Action("GetImage", "Home")" />
+    <br />
+    ID : @Model.id
+    <br />
+    User name: @Model.userName
+    <br />
+    Name: @Model.name
+    
+    
+  </fieldset>
+    
+  <div id="rolesArea">
+        Available Roles for @User.Identity.Name: 
+        @Html.DropDownList("RolesList", ViewData["Roles"] as SelectList)
+  </div>
+}
+
+
+<script type="text/jscript">
+
+    $().ready(function () {
+        $("#myfieldset").dialog();
+        var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+        if (val != "") {
+            dhtmlx.message(val);
+        }
+        $('select#RolesList').change(function () {
+            myForm.submit();
+        });
+    });
+ </script>  
+
+ <div id="calArea">
+ <iframe id='cv_if4' src='http://cdn.instantcal.com/cvir.html?id=cv_nav1&theme=XYE&ntype=cv_datepicker&border_radius=5' allowTransparency='true' scrolling='no' frameborder=0 height=147 width=200></iframe>
+ </div>
+

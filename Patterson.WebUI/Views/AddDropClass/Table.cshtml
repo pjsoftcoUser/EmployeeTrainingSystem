@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Patterson.Domain.Entities.Course>
+
+@{
+    ViewBag.Title = "Table";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<h2>Select Course</h2>
+      
+    
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/AddDropClass/CreateCourseTable/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['View Classes', 'Course Name', 'Course Id', 'Credits', 'Skillset'], //column name
+            colModel: [
+          { name: 'View Classes', width: 100, align: 'center' },
+          { name: 'Course Name', width: 300, align: 'left' },
+          { name: 'CourseId', index: 'Id', width: 70, align: 'center' },
+          { name: 'Credits', index: 'Name', width: 70, align: 'center' },
+          { name: 'Skillset', index: 'Location', width: 140, align: 'left' },
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Available Courses'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+    });
+
+ 
+
+    </script>
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<input type="button" class="b1" value="Return to previous page" onclick="window.location = '/AddDropClass/Index';"/>

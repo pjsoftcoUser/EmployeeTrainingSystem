@@ -1,0 +1,38 @@
+﻿@model Patterson.WebUI.Models.ClassModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Add Class</h2>
+
+@using (Html.BeginForm("Add", "AddRemoveClass", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+	<fieldset>
+	<legend>Class Information</legend>
+    <select name="coursedropdown">
+    @{
+        var courses = TempData["courses"] as List<Patterson.Domain.Entities.Course>;
+        foreach (var p in courses)
+        {
+            <option value = "@p.CourseID">@p.Title</option>
+        }
+    }
+    </select>    
+    
+		@Html.EditorForModel()
+       
+    </fieldset>  
+      
+<input type="submit" value="Save" class="b1"/>
+<p><input type="button" value="Back to Courses" class = "b1"  onclick="window.location = '/AddRemoveClass/Edit'"/></p>
+}
+
+<script type="text/jscript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+        $("#StartDate").datepicker();
+        $("#EndDate").datepicker();
+    });
+</script>

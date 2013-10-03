@@ -1,0 +1,47 @@
+﻿@model Patterson.Domain.Entities.Test
+
+@{
+    ViewBag.Title = "CreateTest";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Create/Edit Test</h2>
+
+@using (Html.BeginForm("newTest", "Test", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    <fieldset>
+    <legend>Test Information</legend>
+        <p>
+        <label for="Title">Course Title:</label>
+        </p>
+        @Html.TextBox("Title")
+        
+        <p>
+        <label for="Identifier">Identifier:</label>
+        </p>
+        @Html.TextBox("Identifier")
+
+        <p>
+        <label for="TimeLimit">Time Limit:</label>
+        </p>
+        @Html.TextBox("TimeLimit")
+
+        <p>
+        <label for="PassingScore">Passing Score:</label>
+        </p>
+        @Html.TextBox("PassingScore")
+    
+	</fieldset>
+   
+ <p><input type="submit" value="Save" class ="b1" /></p>
+ <p><input type="button" value="Cancel and return to List" class = "b1" onclick="location.href='@Url.Action("Index", "Home")'" /></p>
+}
+
+
+<script type="text/jscript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+    })
+        </script>

@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script type ="text/javascript">
+    $(function () {
+        $(".b1")
+        .button()
+    });
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+        if (val != "") {
+            dhtmlx.message(val);
+        }
+</script>
+
+<h2>Add/Drop Classes</h2>
+<input type="button" class="b1" value="Add a new class to your schedule" onclick="window.location = '/AddDropClass/Table';"/>
+<input type="button" class="b1" value="Drop a currently enrolled class" onclick="window.location = '/AddDropClass/DropTable';"/>
+
+

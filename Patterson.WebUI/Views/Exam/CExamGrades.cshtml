@@ -1,0 +1,26 @@
+﻿@model Patterson.Domain.Entities.Exam
+
+@{
+    ViewBag.Title = "Grade";
+}
+<fieldset id = "f1">
+@if (Model != null)
+{
+<h2>Grade for Exam @Model.Test.Identifier</h2>
+
+<p>Total # correct: @Model.score</p>
+<p>Out of a Total Possible @Model.Test.Questions.Count</p>
+<p>@Model.Test.PassingScore needed to pass</p>
+
+@Html.ActionLink("View Exam", "CExamDetails/" + TempData["RosterID"], "Exam", null, new { @class = "b1" })
+
+}
+else
+{
+    <p>No Grades For this Exam</p>
+}
+</fieldset>
+<script type="text/jscript">
+    $(".b1").button();
+    $("#f1").dialog();
+</script>

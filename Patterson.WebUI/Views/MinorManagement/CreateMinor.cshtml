@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "CreateMinor";
+}
+
+<h2>Create a new Minor</h2>
+
+@using (Html.BeginForm("CreateNewMinor", "MinorManagement", FormMethod.Post))
+{
+       
+        <p>
+        <label for="Identifier">Identifier:</label>
+        </p>
+       
+        @Html.TextBox("Identifier")
+         <p>
+        <label for="MinorTitle">Title:</label>
+        </p>
+       
+        @Html.TextBox("MinorTitle")
+
+        <p>
+        <label for="Description">Description:</label>
+        </p>
+       
+        @Html.TextBox("Description")
+
+
+        <p>
+           <input type="submit" value="save" class="b1" />
+        </p>
+        
+             
+
+
+<input type="button" class="b1" value="Cancel" onclick="window.location = '/MinorManagement/Index';"/>
+}
+<script type="text/javascript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+
+    });
+</script>

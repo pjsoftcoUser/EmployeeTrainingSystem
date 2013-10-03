@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "EditInstructors";
+}
+
+
+<h1>Instructors:</h1>
+
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/AddRemoveClass/CreateInstructorList/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Remove Instructor ', 'user ID', 'Name'], //column name
+            colModel: [
+          { name: 'Remove Instructor', width: 165, align: 'center' },
+          { name: 'User ID ', index: 'Id', width: 135, align: 'center' },
+          { name: 'Name', index: 'Name', width: 90, align: 'left' }
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Instructors:'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+
+        $(".b1").button();
+        $(".b2").button();
+        $(".b3").button();
+    });
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+    if (val != "") {
+        dhtmlx.message(val);
+    }   
+</script>
+    
+
+    
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+
+
+
+
+<h2>Add a new Instructor</h2>
+
+@using(Html.BeginForm("AddNewInstructor","AddRemoveClass",FormMethod.Post)){
+        <fieldset>
+        <p>
+        <label for="UserID">User ID of new Instructor:</label>
+        </p>
+        @Html.TextBox("UserID")
+        <p>
+           <input type="submit" class="b3" value="Add Instructor by a specific ID" />
+        </p>
+        <input type="button" class="b2" value="Or, select a user from a listing of all Users" onclick="window.location = '/AddRemoveClass/UserList';"/>
+        </fieldset>
+             }
+
+
+
+<input type="button" class="b1" value="Return to previous page" onclick="window.location = '/AddRemoveClass/ClassList/@Session["CourseID"]';"/>

@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "AddMinorMember";
+}
+
+
+<h1>@Session["MinorTitle"]</h1>
+
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/MinorManagement/CreateMemberList/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Remove Minor from user ', 'user ID', 'Name'], //column name
+            colModel: [
+          { name: 'Remove Minor', width: 165, align: 'center' },
+          { name: 'User ID ', index: 'Id', width: 135, align: 'center' },
+          { name: 'Name', index: 'Name', width: 90, align: 'left' }
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Minors:'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+
+        $(".b1").button();
+        $(".b2").button();
+        $(".b3").button();
+    });
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+    if (val != "") {
+        dhtmlx.message(val);
+    }   
+</script>
+    
+
+    
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+
+
+
+
+<h2>Add this minor to an existing user:</h2>
+
+@using(Html.BeginForm("AddNewMinorMember","MinorManagement",FormMethod.Post)){
+        <fieldset>
+        <p>
+        <label for="ID">User ID of the user the minor will be added to:</label>
+        </p>
+        @Html.TextBox("ID")
+        <p>
+           <input type="submit" class="b3" value="Add minor to this specific user ID" />
+        </p>
+        <input type="button" class="b2" value="Or, select a user from a listing of all Users" onclick="window.location = '/MinorManagement/UserList';"/>
+        </fieldset>
+             }
+
+
+
+<input type="button" class="b1" value="Return to previous page" onclick="window.location = '../../MinorManagement/MinorList';"/>

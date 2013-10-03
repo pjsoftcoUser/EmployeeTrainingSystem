@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<script type ="text/javascript">
+    $(function () {
+        $(".b1")
+        .button()
+    });
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+    if (val != "") {
+        dhtmlx.message(val);
+    }
+</script>
+
+<h2>Team Management</h2>
+<input type="button" class="b1" value="Create a new Skillset" onclick="window.location = '/SkillsetManagement/CreateSkillset';"/>
+<input type="button" class="b1" value="View/Edit an existing Skillset" onclick="window.location = '/SkillsetManagement/SkillsetList';"/>
+

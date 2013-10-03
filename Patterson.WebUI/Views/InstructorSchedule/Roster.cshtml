@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Roster";
+}
+
+<h2>Roster</h2>
+
+<script type ="text/javascript">
+   
+    $(function () {
+        var studentId, present;
+
+        $("#list").jqGrid({
+            url: '/InstructorSchedule/CreateStudentsTable/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['ID', 'Student Name', 'Present', 'Student Email', 'Grade Detail', 'Attendance'], //column name
+            colModel: [
+          { name: 'ID', index: "ID", width: 75, align: 'center' },
+          { name: 'Student Name', width: 170, align: 'center' },
+          { name: 'Present', index: 'Present', width: 102, align: 'center', sortable: true, editable: true, editoptions: { value: "True:False" },
+              formatter: checkboxFormater
+          },
+          { name: 'Student Email', width: 200, align: 'center' },
+          { name: 'Grade Detail', index: 'Name', width: 90, align: 'center' },
+          { name: 'Attendance', index: 'Location', width: 115, align: 'center' },
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Student Roster',
+            onSelectRow: function (id) {
+                studentId = $(this).getCell(id, "ID");
+                present = $(this).getCell(id, "present");
+                //console.log("studentId", studentId, present);
+            }
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+        function checkboxFormater(cellvalue, options, rowObject) {
+            return "<input type=\"checkbox\" onclick= ' if ($(this).attr(\"checked\")) { $.post(\"\/Student\/Present\", { id:" + "$(\"#list\").getCell(" + options.rowId + ", \"ID\")" + "}); } else { $.post(\"\/Student\/Absent\", { id:" + "$(\"#list\").getCell(" + options.rowId + ",\"ID\")" + "})};' \/>";
+        }
+    });
+    this.onmousemove=function() {  
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';   
+        if (val != "") {
+            dhtmlx.message(val);
+        }
+    }
+</script>
+
+<h2>Course History</h2>
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<input type="button" class="b1" value="Return to previous page" onclick="window.location = '/InstructorSchedule/';"/> 

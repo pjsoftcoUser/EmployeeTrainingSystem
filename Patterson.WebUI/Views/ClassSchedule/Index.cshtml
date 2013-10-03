@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Patterson.Domain.Entities.Class>
+
+@{
+    ViewBag.Title = "My Class Schedule";
+}
+
+<h2>My Class Schedule</h2>
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/ClassSchedule/CreateGrid/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Course Home ', 'Course ID', 'Course Name', 'Instructor', 'Start Date', 'End Date'], //column name
+            colModel: [
+          { name: 'Course Home', width: 105, align: 'center' },
+          { name: 'CourseId', index: 'Id', width: 70, align: 'center' },
+          { name: 'Course Name', index: 'Id', width: 180, align: 'center' },
+          { name: 'Instructor', index: 'Name', width: 240, align: 'center' },
+          { name: 'Start Date', index: 'Location', width: 200, align: 'center' },
+          { name: 'End Date', index: 'Location', width: 200, align: 'center' }
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'My Class Schedule'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+    });
+
+    // $(document).on('[aria-describedby="#list_Drop"]',"click",function () {
+    //    dhtmlx.confirm("Test confirm", function (result) { });
+    </script>
+
+<script type ="text/javascript">
+    //dhtmlx.confirm("Test confirm", function (result) {});
+</script>
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<input type="button" class="b1" value="Download My Schedule" onclick="window.location = '/Schedules/GiveMySchedule/@Session["UserId"]';"/> 
+<input type="button" class="b1" value="Email My Schedule" onclick="window.location = '/Schedules/EmailMySchedule/@Session["UserId"]';"/> 
+

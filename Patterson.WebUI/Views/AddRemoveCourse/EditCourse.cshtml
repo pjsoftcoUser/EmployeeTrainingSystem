@@ -1,0 +1,28 @@
+﻿@model Patterson.Domain.Entities.Course
+
+@{
+    ViewBag.Title = "EditCourse";
+}
+
+<h2>Edit Course</h2>
+
+@using (Html.BeginForm("Edit", "AddRemoveCourse", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+<fieldset>
+<legend>Course Information</legend>
+    @Html.EditorForModel()
+
+</fieldset>
+   
+<input type="submit" value="Save" class="b1" />    
+<input type="button" value="Cancel and return to Courses" class = "b1" onclick="location.href='@Url.Action("Edit", "AddRemoveCourse")'" />
+
+}
+
+<script type="text/javascript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+    });
+</script>

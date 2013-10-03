@@ -1,0 +1,30 @@
+﻿@model Patterson.Domain.Entities.Test
+
+@{
+    ViewBag.Title = "EditTest";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>EditTest</h2>
+
+@using (Html.BeginForm("EditTest", "Test", FormMethod.Post,
+    new { enctype = "multipart/form-data" })){
+
+    <fieldset>
+
+    @Html.EditorForModel()
+
+    
+</fieldset>
+   
+<p><input type="submit" value="Save" class ="b1" /></p>
+ <p><input type="button" value="Cancel and return to List" class = "b1" onclick="location.href='@Url.Action("Index", "Admin")'" /></p>
+    }
+
+
+<script type="text/jscript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+    })
+        </script>

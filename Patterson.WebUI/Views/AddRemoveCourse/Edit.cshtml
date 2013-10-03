@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Patterson.Domain.Entities.Course>
+
+@{
+    ViewBag.Title = "Courses";
+}
+
+<h2>Courses</h2>
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+
+<p><input type="button" value="Add a new Course" class = "b1" onclick="location.href='@Url.Action("Index", "AddRemoveCourse")'" /></p>
+@*<p><input type="button" value="Back to Home" class = "b1" onclick="location.href='@Url.Action("Index", "Admin")'" /></p>*@
+
+<script type="text/jscript">
+    var classId;
+    $().ready(function () {
+        $("#list").jqGrid({
+            url: '/AddRemoveCourse/courseTable/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Course ID', 'Course Number', 'Title', 'Active', 'Self Study', 'Created by', 'Created on', 'Last Modified by', 'Last Modified on', 'Action', 'Course Materials'], //column name
+            colModel: [
+          { name: 'ID', width: 70, align: 'center' },
+          { name: 'Course Number', width: 100, align: 'center' },
+          { name: 'Title', width: 220, align: 'left' },
+          { name: 'Active', width: 70, align: 'center' },
+          { name: 'Self Study', width: 70, align: 'center' },
+          { name: 'Created by', width: 125, align: 'center' },
+          { name: 'Created on', width: 125, align: 'center' },
+          { name: 'Last Modified by', width: 125, align: 'center' },
+          { name: 'Last Modified on', width: 125, align: 'center' },
+          { name: 'Action', index: 'Action', width: 100, align: 'center' },
+          { name: 'Course Materials', width: 150, align: 'center' },
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Available Courses',
+            beforeSelectRow: function (id) {
+                classId = $("#list").jqGrid("getCell", id, "ID").slice(-6).substr(0, 2);
+                console.log(classId);
+            }
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+        function MyFormater(cellvalue, options, rowObject) {
+            return "<a onclick=\"ConfirmDelete()\">Delete this class</a>";
+            return "<input class=\"b1\" type=\"button\" value=\"Delete this Course\" onclick=\"ConfirmDelete()\"/>";
+        }
+    });
+    function ConfirmDelete() {
+        dhtmlx.confirm({
+            type: "confirm",
+            text: "Your selection will be permanently deleted!",
+            callback: function (result) {
+                if (result == true)
+                    window.location = "/AddRemoveCourse/DeleteCourse/" + classId;
+            }
+        });
+    }
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+    if (val != "") {
+        dhtmlx.message(val);
+    }
+</script>

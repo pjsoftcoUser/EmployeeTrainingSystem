@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Patterson.Domain.Entities.Class>
+
+@{
+    ViewBag.Title = "My Class History";
+}
+
+<h2>My Class History</h2>
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/ClassHistory/CreateGrid/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Course Name', 'Course ID', 'Instructor', 'Start Date', 'End Date', 'Grade Detail '], //column name
+            colModel: [
+          { name: 'CourseName', index: 'Id', width: 180, align: 'center' },
+          { name: 'CourseId', index: 'Id', width: 70, align: 'center' },
+          { name: 'Instructor', index: 'Name', width: 240, align: 'center' },
+          { name: 'Start Date', index: 'Location', width: 200, align: 'center' },
+          { name: 'End Date', index: 'Location', width: 200, align: 'center' },
+          { name: 'Grade Detail', width: 105, align: 'center'}],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'My Class History'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+    }); 
+
+</script>
+
+
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>

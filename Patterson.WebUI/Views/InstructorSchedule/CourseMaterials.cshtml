@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "CourseMaterials";
+}
+
+<h2>Upload Course Materials</h2>
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+
+<fieldset id= "f1">
+@using (Html.BeginForm("CourseMaterials", "InstructorSchedule", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        Files uploaded here will appear to students of your class alongside the default files associated with this course. (max file size: 4 MB)
+        <input type="file" class="b1" name="file" />&nbsp;&nbsp;&nbsp;
+        <input type="submit" class="b1" value="Upload File" name="Command" /><br />
+    </div>
+    <div>
+    </div>
+}
+</fieldset>
+
+
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/InstructorSchedule/CreateFileGrid/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['File ID', 'Filename', 'File Type', 'Download file'], //column name
+            colModel: [
+          { name: 'File ID', width: 100, align: 'center' },
+          { name: 'File Name', width: 300, align: 'left' },
+          { name: 'File Type', index: 'Id', width: 80, align: 'center' },
+          { name: 'Download File', index: 'Name', width: 100, align: 'center' },
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Available Courses'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $("#f1").dialog({ closeOnEscape: false });
+        $(".b1").button();
+    });
+
+    </script>
+
+
+

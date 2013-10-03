@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="../../Content/css/ui-lightness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/jqGridcss/ui.jqgrid.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/themes/message/message_default.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/jqGrid/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+    <script src="/Scripts/jqGrid/grid.locale-en.js" type="text/javascript"></script>
+    <script src="../../Scripts/jqGrid/jquery.jqGrid.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/message.js" type="text/javascript"></script>   
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script> 
+    
+    <div id="header"><br /><br /><br /><br /><br /><br /></div>
+
+
+
+<div style = "position:absolute;">
+    <h4>
+@{
+        if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/Admin")){
+        <text> | <a href="/Admin" class="a">Users</a></text>}
+        if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/AddRemoveCourse/Edit")){
+        <text> | <a href="/AddRemoveCourse/Edit" class="a">Courses</a></text>}
+        if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/AddRemoveClass/Edit")){
+        <text> | <a href="/AddRemoveClass/Edit" class="a">Classes</a></text>}
+        if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/TeamManagement")){
+        <text> | <a href="/TeamManagement" class="a">Manage Teams</a></text>}
+        if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/SkillsetManagement")){
+        <text> | <a href="/SkillsetManagement" class="a">Manage Skillsets</a></text>}
+         if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/MinorManagement")){
+        <text> | <a href="/MinorManagement" class="a">Manage Minors</a></text>}                                                                    
+         if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/CourseHistory")){
+        <text> | <a href="/CourseHistory" class="a">Course History</a></text>}
+         if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/Logout"))
+         {
+        <text> | <a href="/Logout" class="a">Logout</a></text>}                                                                                                             
+    }
+ </div>
+    <br /><br /><br /> 
+        <p>Admin Control panel</p>
+      </h4>
+    @RenderBody()
+    <div id="footer">
+        <div style="position: relative; text-align: center;">Copyright © 2013 Patterson Corporation</div>
+    </div>
+    
+
+</html>
+
+
+<script type="text/javascript">
+    
+        $(".a").button();
+        
+</script>

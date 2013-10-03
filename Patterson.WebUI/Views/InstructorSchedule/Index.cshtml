@@ -1,0 +1,41 @@
+﻿
+
+@{
+    ViewBag.Title = "Instructor Schedule";
+}
+
+<h2>Instructor Schedule</h2>
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/InstructorSchedule/CreateGrid/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Course Name ', 'Course ID', 'Class ID', 'Start Date', 'End Date', 'View Roster', "Course Materials"], //column name
+            colModel: [
+          { name: 'Course Name', width: 180, align: 'center' },
+          { name: 'Course ID', index: 'Id', width: 80, align: 'center' },
+          { name: 'Class ID', index: 'Name', width: 80, align: 'center' },
+          { name: 'Start Date', index: 'Location', width: 90, align: 'center' },
+          { name: 'End Date', index: 'Location', width: 90, align: 'center' },
+          { name: 'View Roster', index: 'Location', width: 100, align: 'center' },
+          { name: 'Course Materials', index: 'Location', width: 170, align: 'center' }
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Instructor Schedule'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+    });
+
+</script>
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<input type="button" class="b1" value="Download My Schedule" onclick="window.location = '/Schedules/GiveMySchedule/@Session["UserId"]';"/> 

@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "UserList";
+}
+
+<h2>All Users:</h2>
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/AddRemoveClass/CreateUserList/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['User ID ', 'User Name', 'Add Instructor'], //column name
+            colModel: [
+          { name: 'User ID', width: 135, align: 'center' },
+          { name: 'User Name', index: 'Id', width: 135, align: 'center' },
+          { name: 'Add Instructor', index: 'Name', width: 90, align: 'left' }
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'All Users'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+
+
+        $(".b1").button();
+
+    });
+
+    
+  
+</script>
+    
+
+    
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<input type="button" class="b1" value="Return to previous page" onclick="window.location = '/AddRemoveClass/EditInstructors/@Session["ClassID"]';"/>

@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "SkillsetList";
+}
+
+
+<h1>Skillsets:</h1>
+
+
+<script type ="text/javascript">
+    $(function () {
+        $("#list").jqGrid({
+            url: '/SkillsetManagement/CreateSkillsetList/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Add Skillset Member ', 'Edit Skillset Details', 'Identifier', 'Title','Created by: ', 'Created on: ', 'Last modified by ', 'Last Modified on' ], //column name
+            colModel: [
+          { name: 'Add SkillSet Member', width: 135, align: 'center' },
+          { name: 'Edit Skillset Details ', index: 'Id', width: 135, align: 'center' },
+          { name: 'Identifier', index: 'Name', width: 90, align: 'left' },
+          { name: 'Title', index: 'Location', width: 200, align: 'left' },
+          { name: 'Created by', index: 'Location', width: 150, align: 'left' },
+          { name: 'Created on', index: 'Location', width: 120, align: 'center' },
+          { name: 'Last Modified by', index: 'Location', width: 120, align: 'center' },
+          { name: 'Last Modified on', index: 'Location', width: 120, align: 'center' }
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Skillsets:'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+
+        $("form").dialog();
+        $(".b1").button();
+
+    });
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+    if (val != "") {
+        dhtmlx.message(val);
+    }  
+</script>
+    
+
+    
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<input type="button" class="b1" value="Return to previous page" onclick="window.location = '/SkillsetManagement/Index';"/>
+
+
+
+

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Patterson.Domain.Entities.Course>
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+@foreach (var c in Model)
+{
+<p>
+   @Html.ActionLink(@c.Name, "DeleteCourse/" + @c.CourseID, "AddRemoveCourse")
+</p>
+}

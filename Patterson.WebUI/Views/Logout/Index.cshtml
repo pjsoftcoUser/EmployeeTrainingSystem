@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Logout";
+    Layout = "~/Views/Shared/_AnonLayout.cshtml";
+}
+
+<h2>Thank you for your visit!</h2>
+
+<p>Click to <a href="Account/Logon" id="b1">Log On</a> again.</p>
+
+<script type="text/jscript">
+
+    $().ready(function () {
+        $("#b1").button();
+    });
+
+ </script>

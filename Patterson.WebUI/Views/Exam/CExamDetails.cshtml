@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Patterson.Domain.Entities.ExamRecord>
+@{
+    ViewBag.Title = "Exam Details";
+}
+
+<h2>ExamDetails</h2>
+
+@foreach (var record in Model)
+{
+    
+
+ <p>@Html.Raw(record.Question.QuestionText)</p>
+    
+    foreach (var ans in record.Question.Answers)
+    {
+        
+        
+        <p>@Html.Raw(HttpUtility.HtmlDecode(ans.AnswerText)) :      @if (ans.Correctness == 0)
+                                                                    {@Html.Raw("Incorrect");
+                                                                    }
+                                                                    else
+                                                                    { @Html.Raw("Correct")}  @if (record.answer == ans.ID)
+                                                                                             {@Html.Raw("   Chosen")}   </p>
+     
+    }
+}
+
+
+<script type="text/jscript">
+
+</script>
+
+<script type='text/javascript' src='/Scripts/csharp_formatter_normal.js'></script>
+<script type='text/javascript'>    findAndFormatCSharp();</script>

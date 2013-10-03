@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="../../Content/css/ui-lightness/jquery-ui-1.9.2.custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/jqGridcss/ui.jqgrid.css" rel="stylesheet" type="text/css" />
+    <link href="../../Content/themes/message/message_default.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/jqGrid/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+    <script src="/Scripts/jqGrid/grid.locale-en.js" type="text/javascript"></script>
+    <script src="../../Scripts/jqGrid/jquery.jqGrid.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/message.js" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+    <div id="header"><br /><br /><br /><br /><br /><br /></div>
+</head>
+
+<body>
+<div style = "position:absolute;">
+    <h4>
+        @{
+        if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/Home")){
+        <text> | <a href="/Home" class="a">Home</a></text>}
+        if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/ClassSchedule")){
+        <text> | <a href="/InstructorSchedule" class="a">Class Schedule</a></text>}
+        if (!ApplicationInstance.Request.AppRelativeCurrentExecutionFilePath.Equals("~/Profile")){
+        <text> | <a href="/Profile" class="a">Profile</a></text>}                                                        
+    }
+     | <a href="/Logout" class="a">Logout</a>
+</div>
+    <br /><br /><br />
+     <P>Instructor Control panel</P>
+    </h4>
+    @RenderBody()
+    <div id="footer">
+        <div style="position: relative; text-align: center;">Copyright © 2013 Patterson Corporation</div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    (function ($) {
+        $(".a").button();
+//        $("#a1").mouseenter(function () {
+//            $("#a1").animate({ fontSize: '1.2em' }, "fast");
+//            $("#a1").animate({ fontSize: '1em' }, "fast");
+//        });
+//        $("#a2").mouseenter(function () {
+//            $("#a2").animate({ fontSize: '1.2em' }, "fast");
+//            $("#a2").animate({ fontSize: '1em' }, "fast");
+//        });
+//        $("#a3").mouseenter(function () {
+//            $("#a3").animate({ fontSize: '1.2em' }, "fast");
+//            $("#a3").animate({ fontSize: '1em' }, "fast");
+//        });
+//        $("#a4").mouseenter(function () {
+//            $("#a4").animate({ fontSize: '1.2em' }, "fast");
+//            $("#a4").animate({ fontSize: '1em' }, "fast");
+//        });
+//        $("#a5").mouseenter(function () {
+//            $("#a5").animate({ fontSize: '1.2em' }, "fast");
+//            $("#a5").animate({ fontSize: '1em' }, "fast");
+//        });
+//        $("#a6").mouseenter(function () {
+//            $("#a6").animate({ fontSize: '1.2em' }, "fast");
+//            $("#a6").animate({ fontSize: '1em' }, "fast");
+//        });
+//        $("#a7").mouseenter(function () {
+//            $("#a7").animate({ fontSize: '1.2em' }, "fast");
+//            $("#a7").animate({ fontSize: '1em' }, "fast");
+//        });
+    })(jQuery);
+</script>

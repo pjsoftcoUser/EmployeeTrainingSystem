@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<script type ="text/javascript">
+    $(function () {
+        $(".b1")
+        .button()
+    });
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+    if (val != "") {
+        dhtmlx.message(val);
+    }
+</script>
+
+<h2>Team Management</h2>
+<input type="button" class="b1" value="Create a new Team" onclick="window.location = '/TeamManagement/CreateTeam';"/>
+<input type="button" class="b1" value="View/Edit an existing Team" onclick="window.location = '/TeamManagement/TeamList';"/>
+
+
+
+

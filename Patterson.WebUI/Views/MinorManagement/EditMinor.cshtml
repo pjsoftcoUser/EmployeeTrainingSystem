@@ -1,0 +1,27 @@
+﻿@model Patterson.Domain.Entities.Minor
+@{
+    ViewBag.Title = "EditMinor";
+}
+
+<h2>Edit Minor</h2>
+
+@using (Html.BeginForm("Edit", "MinorManagement", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    <fieldset>
+
+    @Html.EditorForModel()
+
+</fieldset>
+  
+<input type="submit" value="Save" class="b1"/>
+<input type="button" class="b1" value="Cancel and return to previous page" onclick="window.location = '/MinorManagement/MinorList';"/>
+}
+
+<script type="text/javascript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+
+    });
+</script>

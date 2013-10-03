@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "ClassList";
+}
+
+<h2>ClassList for @TempData["course"]</h2>
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<p><input type="button" value="Back to Courses" class = "b1" onclick="location.href='@Url.Action("Edit", "AddRemoveClass")'" /></p>
+
+<script type="text/jscript">
+    var classId;
+    $().ready(function () {
+        $("#list").jqGrid({
+            url: '/AddRemoveClass/classTable/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['Class ID', 'Title', 'Start Date', 'End Date', 'Created by', 'Created on', 'Modified by', 'Modified on', 'Instructor', 'Edit Class', 'Edit Sessions', 'Action', 'Tests'], //column name
+            colModel: [
+          { name: 'ID', width: 50, align: 'center' },
+          { name: 'Title', width: 150, align: 'center' },
+          { name: 'Start Date', width: 120, align: 'center' },
+          { name: 'End Date', width: 120, align: 'center' },
+          { name: 'Created by', width: 100, align: 'center' },
+          { name: 'Created on', width: 120, align: 'center' },
+          { name: 'Modified by', width: 100, align: 'center' },
+          { name: 'Modified on', width: 120, align: 'center' },
+          { name: 'Instructor', width: 100, align: 'center' },
+          { name: 'Edit class', width: 70, align: 'center' },
+          { name: 'Edit sessions', width: 80, align: 'center' },
+          { name: 'Action', index: 'Action', width: 108, align: 'left', formatter: MyFormater },
+          { name: 'tests', width: 60, align: 'center' },
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'Id',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Available Classes',
+            beforeSelectRow: function (id) {
+                classId = $("#list").jqGrid("getCell", id, "ID");
+                console.log(classId);
+            }
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        $(".b1").button();
+
+        function MyFormater(cellvalue, options, rowObject) {
+            //return "<a onclick=\"ConfirmDelete()\">Delete this class</a>";
+            return "<input class=\"b1\" type=\"button\" value=\"Delete this class\" onclick=\"ConfirmDelete()\"/>";
+        }
+    });
+    
+    function ConfirmDelete() {
+        dhtmlx.confirm({
+            type: "confirm",
+            text: "Your selection will be permanently deleted!",
+            callback: function (result) {
+                if (result == true)
+                window.location = "/AddRemoveClass/DeleteClass/" + classId;
+            }
+        });
+    }
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+    if (val != "") {
+        dhtmlx.message(val);
+    }
+</script>

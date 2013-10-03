@@ -1,0 +1,78 @@
+﻿@model Patterson.Domain.Entities.User
+           
+@{
+    ViewBag.Title = "Profile for: " + @Model.name;
+}
+----------------------------
+<h2>@Model.name Profile</h2>
+
+
+@using (Html.BeginForm("Index", "Profile", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    <fieldset>
+    <legend>User Information</legend>
+    
+    @Html.HiddenFor(u => u.userName)
+    @Html.HiddenFor(u => u.password)
+    @Html.HiddenFor(u => u.confirmPassword)
+    @Html.HiddenFor(u => u.CreatedBy)
+    @Html.HiddenFor(u => u.CreatedOn)
+    @Html.HiddenFor(u => u.failCount)
+    @Html.HiddenFor(u => u.ModifiedBy)
+    @Html.HiddenFor(u => u.ModifiedOn)
+    @Html.HiddenFor(u => u.id)
+    @Html.HiddenFor(u => u.ImageMimeType)
+
+    <p>
+        @Html.Label("Name")
+    </p>
+    @Html.EditorFor(u => u.name)
+    <p>
+        @Html.Label("Last Name")
+    </p>
+    @Html.EditorFor(u => u.lastName)
+    <p>
+        @Html.Label("Telephone")
+    </p>
+    @Html.EditorFor(u => u.telephone)
+    <p>
+        @Html.Label("Address")
+    </p>
+    @Html.EditorFor(u => u.address)
+    <p>
+        @Html.Label("Email")
+    </p>
+    @Html.EditorFor(u => u.email)
+    </fieldset>
+    <fieldset>  
+    <legend>Image</legend>
+        <div class="editor-label">Image</div>
+        <div class="editor-field">
+            @if (Model.ImageData == null)
+            {
+                @:None
+            }
+            else
+            {
+                <img width="150" height="150" 
+                src="@Url.Action("GetImage", "User", new { Model.id })" />
+            }
+            <input type="file" name="Image"  value="Upload new image:"class="b1"/>
+        </div>
+    </fieldset>
+    <p><input type="submit" value="Save" class ="b1" /></p>
+    <p><input type="button" value="Cancel" class = "b1" onclick="location.href='@Url.Action("Index", "Home")'" /></p>
+}
+
+
+<script type="text/jscript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false, height: 'auto', width: 'auto' });
+        $(".b1").button();
+        var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+        if (val != "") {
+            dhtmlx.message(val);
+        }
+    });
+</script>

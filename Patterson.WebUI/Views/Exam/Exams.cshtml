@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Patterson.Domain.Entities.Test>
+
+@{
+    ViewBag.Title = "Exams";
+    
+}
+
+<h2>Exams</h2>
+<table>
+@foreach(var test in Model){
+    
+    <tr>
+    <td>@test.Title</td><td> @Html.ActionLink("Take Test", "TakeExam/" + test.ID,null, new { @class = "b1" })</td>
+    </tr>
+}
+</table>
+<script type="text/jscript">
+    $(document).ready(function () {
+        $(".b1").button();
+    });
+
+
+</script>
+

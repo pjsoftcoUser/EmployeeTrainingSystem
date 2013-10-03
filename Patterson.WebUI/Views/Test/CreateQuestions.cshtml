@@ -1,0 +1,87 @@
+﻿@model Patterson.Domain.Entities.Question
+
+@{
+    ViewBag.Title = "CreateQuestions";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>CreateQuestions</h2>
+
+
+@using (Html.BeginForm("newQuestion", "Test", FormMethod.Post,
+    new { enctype = "multipart/form-data" }))
+{
+    {
+    <fieldset>
+    <p>
+   <label for="QuestionText">Question Text</label>
+
+   @Html.TextArea("QuestionText")
+   </p>
+   <p>
+   <label for="AnswerA">Answer A:</label>
+
+   @Html.TextArea("Answer A")
+   </p>
+   <p>
+   <label for="ACorrect">Is A Correct?:</label>
+   @Html.CheckBox("ACorrect",false)
+   </p>
+   <p>
+  <label for="AnswerB">Answer B:</label>
+
+   @Html.TextArea("Answer B")
+   </p>
+   <p>
+   <label for="BCorrect">Is B Correct?:</label>
+   @Html.CheckBox("BCorrect",false)
+   </p>
+   <p>
+  <label for="AnswerC">Answer C:</label>
+
+   @Html.TextArea("Answer C")
+   </p>
+   <p>
+   <label for="CCorrect">Is C Correct?:</label>
+   @Html.CheckBox("CCorrect",false)
+   </p>
+   <p>
+  <label for="AnswerD">Answer D:</label>
+
+   @Html.TextArea("Answer D")
+   </p>
+   <p>
+   <label for="DCorrect">Is D Correct?:</label>
+   @Html.CheckBox("DCorrect",false)
+   </p>
+   <p>
+  <label for="AnswerE">Answer E:</label>
+
+   @Html.TextArea("Answer E")
+   </p>
+   <p>
+   <label for="ECorrect">Is E Correct?:</label>
+   @Html.CheckBox("ECorrect",false)  
+   </p>
+
+    
+</fieldset>
+   
+ <p><input type="submit" value="Save" class ="b1" /></p>
+ <p><input type="button" value="Cancel and return to List" class = "b1" onclick="location.href='@Url.Action("Index", "Home")'" /></p>
+    }
+}
+
+<script type="text/jscript">
+    $().ready(function () {
+        $("form").dialog({ closeOnEscape: false });
+        $(".b1").button();
+
+    })
+    var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+        if (val != "") {
+            dhtmlx.message(val);
+        }
+</script>
+
+

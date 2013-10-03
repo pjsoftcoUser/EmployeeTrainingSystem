@@ -1,0 +1,83 @@
+﻿<h2>Users</h2>
+@using (Html.BeginForm("Index", "Home", FormMethod.Post,
+    new { id = "myForm" }))
+{
+
+<table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+    <br />
+<table id="list2" class="scroll" cellpadding="0" cellspacing="0"></table>
+
+<p><input type="button" value="Add a new user" class = "b1" onclick="location.href='@Url.Action("Create", "Admin")'" /></p>
+    
+ <div id="rolesArea">
+        Available Roles for @User.Identity.Name: 
+        @Html.DropDownList("RolesList", ViewData["Roles"] as SelectList)
+ </div>
+}
+
+<script type="text/jscript">
+    var user;
+    $().ready(function () {
+        $(".b1").button();
+        var val = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["message"]))';
+        if (val != "") {
+            dhtmlx.message(val);
+        }
+        $('select#RolesList').change(function () {
+            myForm.submit();
+        });
+        $("#list").jqGrid({
+            url: '/Admin/UserTable/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['ID', 'User Name', 'Name', 'CreatedBy', 'CreatedOn', 'Last ModifiedBy', 'Last ModifiedOn'], //column name
+            colModel: [
+          { name: 'ID', width: 70, align: 'center' },
+          { name: 'User Name', width: 300, align: 'left' },
+          { name: 'Name', width: 300, align: 'left' },
+          { name: 'CreatedBy', width: 120, align: 'left' },
+          { name: 'CreatedOn', width: 120, align: 'left' },
+          { name: 'ModifiedBy', width: 120, align: 'left' },
+          { name: 'ModifiedOn', width: 120, align: 'left' }
+            //          { name: 'Action', index: 'Action', width: 100, align: 'center' },
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 1000,
+            rowList: [5, 10, 20, 50],
+            sortname: 'ID',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'All Users'
+        });
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+
+        $("#list2").jqGrid({
+            url: '/Admin/AspUserTable/', //this is action in controller which returns the json as result.
+            datatype: 'json',
+            mtype: 'GET',
+            colNames: ['User Name', 'Email', 'Online Status', 'Last Activity', 'Action'], //column name
+            colModel: [
+          { name: 'User Name', width: 200, align: 'center' },
+          { name: 'Email', width: 150, align: 'left' },
+          { name: 'Online Status', width: 100, align: 'left' },
+          { name: 'Last Activity', width: 120, align: 'left' },
+          { name: 'Action', width: 70, align: 'left' }
+          ],
+            pager: jQuery('#pager'),
+            rowNum: 10,
+            rowList: [5, 10, 20, 50],
+            sortname: 'User Name',
+            sortorder: "desc",
+            viewrecords: true,
+            caption: 'Pending Users'            
+        });
+        $("#list2").closest(".ui-jqgrid-bdiv").attr("style",
+        $("#list2").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        
+    });
+</script>
+
+<div id="AdmincalArea">
+ <iframe id='cv_if4' src='http://cdn.instantcal.com/cvir.html?id=cv_nav1&theme=XYE&ntype=cv_datepicker&border_radius=5' allowTransparency='true' scrolling='no' frameborder=0 height=147 width=150></iframe>
+</div>
