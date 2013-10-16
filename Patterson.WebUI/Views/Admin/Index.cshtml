@@ -4,6 +4,7 @@
 {
 
 <table id="list" class="scroll" cellpadding="0" cellspacing="0"></table>
+<div id ="userPager" class="scroll" style="text-align:center;"></div>
     <br />
 <table id="list2" class="scroll" cellpadding="0" cellspacing="0"></table>
 
@@ -32,25 +33,23 @@
             mtype: 'GET',
             colNames: ['ID', 'User Name', 'Name', 'CreatedBy', 'CreatedOn', 'Last ModifiedBy', 'Last ModifiedOn'], //column name
             colModel: [
-          { name: 'ID', width: 70, align: 'center' },
-          { name: 'User Name', width: 300, align: 'left' },
-          { name: 'Name', width: 300, align: 'left' },
-          { name: 'CreatedBy', width: 120, align: 'left' },
-          { name: 'CreatedOn', width: 120, align: 'left' },
-          { name: 'ModifiedBy', width: 120, align: 'left' },
-          { name: 'ModifiedOn', width: 120, align: 'left' }
-            //          { name: 'Action', index: 'Action', width: 100, align: 'center' },
-          ],
-            pager: jQuery('#pager'),
-            rowNum: 1000,
-            rowList: [5, 10, 20, 50],
-            sortname: 'ID',
+              { name: 'id', width: 70, align: 'center' },
+              { name: 'userName', width: 300, align: 'left' },
+              { name: 'name', width: 300, align: 'left' },
+              { name: 'CreatedBy', width: 120, align: 'left' },
+              { name: 'CreatedOn', width: 120, align: 'left' },
+              { name: 'ModifiedBy', width: 120, align: 'left' },
+              { name: 'ModifiedOn', width: 120, align: 'left' }
+              ],
+            pager: jQuery('#userPager'),
+            rowNum: 6,
+            rowList: [6, 10, 20, 50],
+            sortname: 'name',
             sortorder: "desc",
             viewrecords: true,
             caption: 'All Users'
         });
-        $("#list").closest(".ui-jqgrid-bdiv").attr("style",
-        $("#list").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
+        
 
         $("#list2").jqGrid({
             url: '/Admin/AspUserTable/', //this is action in controller which returns the json as result.
@@ -71,10 +70,7 @@
             sortorder: "desc",
             viewrecords: true,
             caption: 'Pending Users'            
-        });
-        $("#list2").closest(".ui-jqgrid-bdiv").attr("style",
-        $("#list2").closest(".ui-jqgrid-bdiv").attr("style") + " overflow-y: scroll; ");
-        
+        });        
     });
 </script>
 

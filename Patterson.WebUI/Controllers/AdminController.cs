@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Web;
 using System.Web.Mvc;
 using Patterson.Domain.Abstract;
@@ -38,21 +39,27 @@ namespace Patterson.WebUI.Controllers
         }
 
         //Create User table
-        public ActionResult UserTable(string sidx, string sord, int page, int rows)
+        public ActionResult UserTable(string sidx, string sord, int? page, int? rows)
         {
-            List<User> userList = new List<User>();
-            userList = repository.Users.ToList();
+            int pageSize = rows ?? 5;
+            int totalRecords = repository.Users.Count();
+            int totalPages = (int)Math.Ceiling((float)totalRecords / (float)pageSize);
+            int pageIndex = Convert.ToInt32(page);
+            string sortByColumnName = sidx ?? "name";
+            string sortDirection = sord ?? "desc";
+
+            var data = repository.Users.OrderBy("it." + sidx + " " + sord).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToArray();
 
             var jsonData = new
             {
-                total = 1,
-                page = page,
-                records = userList.Count(),
+                total = totalPages,
+                page = pageIndex,
+                records = totalRecords,
 
-                rows = (from n in userList
+                rows = (from n in data
                         select new
                         {
-                            i = n.id,
+                            id = n.id,
                             cell = new string[]{
                                 n.id.ToString(),
                                 "<a href=\"/Admin/Edit/" + n.id.ToString() + "\">" + n.userName.ToString() + "</a>",
